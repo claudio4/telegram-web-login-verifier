@@ -9,5 +9,4 @@ description = "A rust library to verify a login request generated with the Teleg
 
 [dependencies]
 ring = "0.12.1"
-serde = "1.0.27"
 hex = "0.3.1"
