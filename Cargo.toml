@@ -1,6 +1,9 @@
 [package]
-name = "Telegram-login-verifier"
+name = "telegram-login-verifier"
 version = "0.1.0"
 authors = ["Claudio4 <me@claudio4.com>"]
 
 [dependencies]
+ring = "0.12.1"
+serde = "1.0.27"
+hex = "0.3.1"
