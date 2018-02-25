@@ -1,0 +1,6 @@
+[package]
+name = "Telegram-login-verifier"
+version = "0.1.0"
+authors = ["Claudio4 <me@claudio4.com>"]
+
+[dependencies]
