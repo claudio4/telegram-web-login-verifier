@@ -144,7 +144,7 @@ mod tests {
     fn expired_data() {
         let v = LoginVerifier::new("537813868:AAEF2YTOOXNAWpnO1J9p6B5xs-SfU3S0lQI");
         let data = RequestData {
-            auth_date: 1519574536,
+            auth_date: 946684800,
             first_name: "Claudio4".to_string(),
             hash: "b4771ead3d50c8712cdded9ce5f7166eb90c630e3d43de812b7a0bc5f2885bc2".to_string(),
             id: 4039441,
