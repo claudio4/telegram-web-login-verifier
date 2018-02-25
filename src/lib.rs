@@ -5,7 +5,7 @@ extern crate hex;
 use ring::{digest, hmac};
 use std::time::{SystemTime, UNIX_EPOCH};
 
-/// This struct stores the data provided by the user in format compatible with the telegram_login_verifier::LoginVerifier
+/// This struct stores the data provided by the user in format compatible with the telegram_web_login_verifier::LoginVerifier
 #[derive(Debug)]
 pub struct RequestData {
     pub auth_date: u64,
@@ -28,7 +28,9 @@ impl LoginVerifier {
     * `token` - A &str  containing the bot token provided by Telegram's Botfather
     # Examples
     ```
-    use telegram_login_verifier::{LoginVerifier, RequestData}
+    extern crate telegram_web_login_verifier;
+
+    use telegram_web_login_verifier::{LoginVerifier, RequestData};
 
     let verifier = LoginVerifier::new("123456789:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     ```
@@ -55,7 +57,7 @@ impl LoginVerifier {
         Verifies if the provided login data is valid
 
         # Arguments
-        * `data` - A reference to a telegram_login_verifier::RequestData struct.
+        * `data` - A reference to a telegram_web_login_verifier::RequestData struct.
         * `check_time_stamp` - If true the function will check if the auth_date is older than a day, in that case the function will return an Err("The login request expired")
 
         # Remarks
@@ -63,11 +65,13 @@ impl LoginVerifier {
 
         # Examples
         ```
-        use telegram_login_verifier::{LoginVerifier, RequestData}
+        extern crate telegram_web_login_verifier;
+
+        use telegram_web_login_verifier::{LoginVerifier, RequestData};
 
         let verifier = LoginVerifier::new("123456789:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
-        let data = telegram_login_verifier::RequestData {
+        let data = RequestData {
             auth_date: 1234567890,
             first_name: "First name".to_string(),
             hash: "d029f87e3d80f8fd9b1be67c7426b4cc1ff47b4a9d0a8461c826a59d8c5eb6cd".to_string(),
