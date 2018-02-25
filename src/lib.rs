@@ -105,10 +105,54 @@ impl LoginVerifier {
 
 #[cfg(test)]
 mod tests {
-    use super::LoginVerifier;
+    use super::*;
 
     #[test]
-    fn it_works() {
-        true
+    fn valid_data() {
+        let v = LoginVerifier::new("537813868:AAEF2YTOOXNAWpnO1J9p6B5xs-SfU3S0lQI");
+        let data = RequestData {
+            auth_date: 1519574536,
+            first_name: "Claudio4".to_string(),
+            hash: "b4771ead3d50c8712cdded9ce5f7166eb90c630e3d43de812b7a0bc5f2885bc2".to_string(),
+            id: 4039441,
+            photo_url: "https://t.me/i/userpic/320/claudio4.jpg".to_string(),
+            username: "claudio4".to_string()
+        };
+        match v.verify(&data, false) {
+            Ok(b) => assert!(b, "The result should be true"),
+            Err(e) => panic!("The result should be Ok but it return the following error: {}", e)
+        };
+    }
+    #[test]
+    fn invalid_token() {
+        let v = LoginVerifier::new("537813868:AAEF2YTOOXNAWpnO1J9p6B5xs-SfU3S0lQI");
+        let data = RequestData {
+            auth_date: 1519574536,
+            first_name: "Claudio4".to_string(),
+            hash: "123456789:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".to_string(),
+            id: 4039441,
+            photo_url: "https://t.me/i/userpic/320/claudio4.jpg".to_string(),
+            username: "claudio4".to_string()
+        };
+        match v.verify(&data, false) {
+            Ok(_) => panic!("The result should be an error, but is true"),
+            Err(e) => assert!(e == "Invalid login data", "The error should be \"Invalid login data\", but it is \"{}\"", e)
+        };
+    }
+    #[test]
+    fn expired_data() {
+        let v = LoginVerifier::new("537813868:AAEF2YTOOXNAWpnO1J9p6B5xs-SfU3S0lQI");
+        let data = RequestData {
+            auth_date: 1519574536,
+            first_name: "Claudio4".to_string(),
+            hash: "b4771ead3d50c8712cdded9ce5f7166eb90c630e3d43de812b7a0bc5f2885bc2".to_string(),
+            id: 4039441,
+            photo_url: "https://t.me/i/userpic/320/claudio4.jpg".to_string(),
+            username: "claudio4".to_string()
+        };
+        match v.verify(&data, true) {
+            Ok(_) => panic!("The result should be an error, but is true"),
+            Err(e) => assert!(e == "The login request expired", "The error should be \"The login request expired\", but it is \"{}\"", e)
+        };
     }
 }
