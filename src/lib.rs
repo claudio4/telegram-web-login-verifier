@@ -6,6 +6,7 @@ use ring::{digest, hmac};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// This struct stores the data provided by the user in format compatible with the telegram_login_verifier::LoginVerifier
+#[derive(Debug)]
 pub struct RequestData {
     pub auth_date: u64,
     pub first_name: String,
